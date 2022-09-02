@@ -9,10 +9,10 @@
 #define APPLICATION_ROBOT_ROBOT_INT_H_
 
 void AROBOT_vInit(void);
-void AROBOT_vMoveForward(void);
-void AROBOT_vMoveRight(void);
-void AROBOT_vMoveLeft(void);
-void AROBOT_vMoveBack(void);
+void AROBOT_vMoveForward(u08 A_u8Speed);
+void AROBOT_vMoveRight(u08 A_u8Speed);
+void AROBOT_vMoveLeft(u08 A_u8Speed);
+void AROBOT_vMoveBack(u08 A_u8Speed);
 void AROBOT_vStop(void);
 
 

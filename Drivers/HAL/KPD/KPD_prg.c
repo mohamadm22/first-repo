@@ -10,6 +10,7 @@
 #include"../../MCAL/DIO/DIO_int.h"
 
 #include"KPD_int.h"
+#include"KPD_cfg.h"
 
 
 #include"util/delay.h"

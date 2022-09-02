@@ -6,30 +6,56 @@
  */
 
 #include "../LIB/STD_TYPE.h"
-#include "../MCAL/DIO/DIO_int.h"
-#include "../MCAL/TMR/TMR_int.h"
-#include "../MCAL/GIE/GIE_int.h"
+#include"SNAKE/SNAKE_int.h"
+#include"../HAL/KPD/KPD_int.h"
 
-void toggle(void)
-{
-	MDIO_vTogglePin(DIO_PORTA, DIO_PIN0);
-}
-void toggle2(void)
-{
-	MDIO_vTogglePin(DIO_PORTA, DIO_PIN1);
-}
+u08 arr1[]={
+		0b00000000,
+		0b00000000,
+		0b00000000,
+		0b00000000,
+		0b00001010,
+		0b00011111,
+		0b00001110,
+		0b00000100,
+};
+u08 arr2[]={
+		0b00000000,
+		0b00000000,
+		0b00000000,
+		0b00000000,
+		0b00000100,
+		0b00001110,
+		0b00011111,
+		0b00001010,
+};
+
 int main(void)
 {
-	MDIO_vSetPinDir(DIO_PORTD, DIO_PIN5, DIO_Output);
-
-	MTMR_vInit();
-	MTMR_vSetTopValue(2500);
-	MTMR_vSetCompareValue(Timer1,195);
-	MTMR_vStartTimer(Timer1);
-
+	HLCD_vInit();
+	/*SNAKE_vInit();
+	HKPD_init();*/
 	while(1)
 	{
+		HLCD_vSetCursorPosition(0,0);
+		HLCD_vClearDisplay();
+		HLCD_vSaveCustomChar(1,arr1);
+		HLCD_vSendChar(1);
+		HLCD_vSaveCustomChar(1,arr2);
+		HLCD_vSetCursorPosition(0,1);
+		HLCD_vSendChar(1);
 
+
+		/*if(HKPD_u8GetPressedKey()==2)
+			SNAKE_vMoveUp();
+		else if(HKPD_u8GetPressedKey()==5)
+			SNAKE_vMoveUp();
+		else if(HKPD_u8GetPressedKey()==7)
+			SNAKE_vMoveUp();
+		else if(HKPD_u8GetPressedKey()==10)
+			SNAKE_vMoveUp();
+		SNAKE_vGetLong();
+		SNAKE_vGameOver();*/
 
 
 	}

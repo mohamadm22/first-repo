@@ -7,9 +7,9 @@
 #include"../../LIB/BIT_MATH.h"
 #include"../../LIB/STD_TYPE.h"
 
-#include"EXTI_cfg.h"
 #include"EXTI_int.h"
 #include"EXTI_prv.h"
+#include"EXTI_cfg.h"
 
 
 

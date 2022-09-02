@@ -10,6 +10,7 @@
 #include"../../MCAL/DIO/DIO_int.h"
 
 #include"SSD_int.h"
+#include"SSD_cfg.h"
 
 
 

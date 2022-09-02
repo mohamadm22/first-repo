@@ -11,13 +11,18 @@
 #include"../../MCAL/DIO/DIO_int.h"
 
 #include"LCD_int.h"
+#include"LCD_cfg.h"
 
 
-#include"util/delay.h"
+#include<util/delay.h>
 
 
 
-
+void HLCD_vClearDisplay(void)
+{
+	HLCD_vSendCommand(1);
+	_delay_ms(2);
+}
 void HLCD_vSendCommand(u08 A_u8Command)
 {
 	MDIO_vSetPinVal(LCD_CTRL_PORT,LCD_RS_PIN,DIO_LOW);
@@ -115,13 +120,13 @@ void HLCD_vPrintNumber(s08 A_s32Number){
 }
 void HLCD_vSetCursorPosition(u08 A_u8linePos,u08 A_u8lineNum)
 {
-	switch(A_u8lineNum)
+	switch(A_u8linePos)
 	{
 	case 0:
-		HLCD_vSendCommand(0x80+A_u8linePos+(A_u8lineNum+0));
+		HLCD_vSendCommand((A_u8lineNum+0)|0x80);
 		break;
 	case 1:
-		HLCD_vSendCommand(0x80+A_u8linePos+(A_u8lineNum+64));
+		HLCD_vSendCommand((A_u8lineNum+0x40)|0x80);
 		break;
 
 

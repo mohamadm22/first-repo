@@ -10,7 +10,8 @@
 
 #include"ADC_int.h"
 #include"ADC_prv.h"
-
+#include"ADC_cfg.h"
+u08 ReadFlag=0;
 void (*ADC_callback)(void);
 
 
@@ -28,8 +29,20 @@ void MADC_vinit(void)
 #else
 #error"select right mode plz!!"
 #endif
+
+#if Auto_Trigger==ENABLE
+
+	SET_BIT(ADCSRA,ADATE);
+	SFIOR&=0x1f;
+	SFIOR|=(Auto_Trigger_Mode<<5);
+
+#elif Auto_Trigger==DISABLE
+
+	CLR_BIT(ADCSRA,ADATE);
+
+#endif
 	CLR_BIT(ADMUX,ADLAR);
-	ADCSRA=(ADCSRA&0xF8)|0b110;
+	ADCSRA=(ADCSRA&0xF8)|Prescaler;
 	CLR_BIT(ADCSRA,ADATE);
 	SET_BIT(ADCSRA,ADEN);
 }
@@ -43,20 +56,19 @@ u16 MADC_u16AnalogRead(u08 A_u8ChannelNo)
 	return ADC;
 
 }
-void MADC_vSetCallback(void (*ptr)(void),u08 A_u8ChannelNo)
+u16 MADC_u16AnalogReadASYC(u08 A_u8ChannelNo)
 {
+	ReadFlag=0;
 	ADMUX=(ADMUX&0xE0)|(A_u8ChannelNo&0x07);
 	SET_BIT(ADCSRA,ADSC);
-	ADC_callback=ptr;
-}
-u16 MADC_u16GetData(void)
-{
+	SET_BIT(ADCSRA,ADIE);
+	while(ReadFlag!=1);
 	return ADC;
 }
 
 void __vector_16(void)__attribute__((signal));
 void __vector_16(void)
 {
-	ADC_callback();
+	ReadFlag=1;
 
 }

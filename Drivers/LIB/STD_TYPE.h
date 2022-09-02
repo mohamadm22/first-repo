@@ -1,7 +1,7 @@
 /*
  * STD_TYPE.h
  *
- *  Created on: ??þ/??þ/????
+ *  Created on: ??ï¿½/??ï¿½/????
  *      Author: moham
  */
 
@@ -16,7 +16,7 @@ typedef signed short int               s16;
 typedef signed long int                s32;
 typedef float                          f32;
 typedef double                         f64;
-
+#define None						   255
 
 
 
